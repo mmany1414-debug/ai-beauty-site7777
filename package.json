@@ -1,0 +1,14 @@
+{
+  "name": "ai-beauty-website",
+  "version": "1.0.0",
+  "description": "AI BEAUTY - الذكاء الاصطناعي للتسويق",
+  "main": "index.html",
+  "scripts": {
+    "start": "npx serve -s .",
+    "build": "echo 'Build completed'",
+    "deploy": "npx netlify deploy --prod --dir ."
+  },
+  "keywords": ["ai", "beauty", "marketing", "website"],
+  "author": "AI BEAUTY",
+  "license": "MIT"
+}
