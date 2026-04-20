@@ -4,18 +4,15 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>AI BEAUTY | الإمبراطورية الرقمية</title>
-    
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@300;400;700;900&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    
     <style>
         :root {
             --gold: #D4AF37;
             --black: #050505;
             --glass: rgba(255, 255, 255, 0.07);
             --border: rgba(212, 175, 55, 0.3);
+            --dark-grey: #111;
         }
 
         * { margin: 0; padding: 0; box-sizing: border-box; scroll-behavior: smooth; }
@@ -25,7 +22,6 @@
             background-color: var(--black);
             color: #fff;
             overflow-x: hidden;
-            line-height: 1.6;
         }
 
         #particles-js {
@@ -40,104 +36,273 @@
         header {
             background: rgba(0,0,0,0.85);
             backdrop-filter: blur(15px);
-            padding: 15px 0;
+            padding: 20px 0;
             border-bottom: 1px solid var(--border);
             position: sticky; top: 0; z-index: 1000;
         }
 
         .nav-container { display: flex; justify-content: space-between; align-items: center; }
-        .nav-links { display: flex; gap: 20px; list-style: none; align-items: center; }
-        .nav-links a { color: #fff; text-decoration: none; font-weight: 700; transition: 0.3s; }
-        .nav-links a:hover { color: var(--gold); }
+        .nav-links { display: flex; gap: 30px; list-style: none; align-items: center; }
+        .nav-links a { color: #fff; text-decoration: none; font-weight: 700; transition: 0.3s; font-size: 1.1rem; }
+        .nav-links a:hover { color: var(--gold); text-shadow: 0 0 10px var(--gold); }
 
         .btn-lang, .btn-login {
-            background: transparent; border: 1px solid var(--gold);
-            color: var(--gold); padding: 5px 15px; border-radius: 20px;
-            cursor: pointer; font-weight: 700; font-family: 'Tajawal';
+            background: transparent;
+            border: 1px solid var(--gold);
+            color: var(--gold);
+            padding: 5px 15px;
+            border-radius: 20px;
+            cursor: pointer;
+            font-weight: 700;
+            transition: 0.3s;
+            font-family: 'Tajawal';
+        }
+        .btn-lang:hover, .btn-login:hover { background: var(--gold); color: #000; }
+
+        .hero-logo {
+            text-align: center;
+            padding: 80px 0 40px;
         }
 
-        .hero-logo { text-align: center; padding: 60px 0 30px; }
         .hero-logo h1 {
-            font-size: clamp(3rem, 8vw, 6rem);
+            font-size: 6.5rem;
             font-weight: 900;
-            background: linear-gradient(to bottom, #fff, var(--gold));
+            background: linear-gradient(to bottom, #fff 30%, var(--gold) 100%);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
+            filter: drop-shadow(0 0 15px rgba(212,175,55,0.8));
             margin-bottom: 10px;
+            animation: pulseGlow 3s infinite alternate;
         }
 
-        .badge-item {
-            display: inline-block; padding: 10px 25px;
-            border: 1px solid var(--gold); border-radius: 50px;
-            color: var(--gold); text-decoration: none; font-weight: 700;
-            background: rgba(212, 175, 55, 0.1); transition: 0.3s;
+        @keyframes pulseGlow {
+            from { filter: drop-shadow(0 0 15px rgba(212,175,55,0.6)); }
+            to { filter: drop-shadow(0 0 30px rgba(212,175,55,0.9)); }
         }
-        .badge-item:hover { background: var(--gold); color: #000; box-shadow: 0 0 15px var(--gold); }
+
+        .trust-badge {
+            text-align: center;
+            margin-bottom: 50px;
+        }
+        .badge-item {
+            display: inline-block;
+            padding: 10px 30px;
+            border: 1px solid var(--gold);
+            border-radius: 50px;
+            background: rgba(212, 175, 55, 0.1);
+            font-weight: 700;
+            color: var(--gold);
+            transition: 0.3s;
+        }
+        .badge-item:hover {
+            background: var(--gold);
+            color: #000;
+            box-shadow: 0 0 20px var(--gold);
+        }
 
         .services-grid {
-            display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-            gap: 20px; padding: 40px 0;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 25px;
+            padding: 50px 0;
         }
 
         .service-card {
-            background: var(--glass); border: 1px solid rgba(255,255,255,0.1);
-            border-radius: 20px; padding: 30px; text-align: center;
-            transition: 0.4s; cursor: pointer; backdrop-filter: blur(10px);
+            background: var(--glass);
+            border: 1px solid rgba(255,255,255,0.1);
+            border-radius: 25px;
+            padding: 40px;
+            text-align: center;
+            transition: 0.5s;
+            cursor: pointer;
+            position: relative;
+            overflow: hidden;
+            backdrop-filter: blur(10px);
         }
-        .service-card:hover { transform: translateY(-10px); border-color: var(--gold); }
-        .service-card i { font-size: 2.5rem; color: var(--gold); margin-bottom: 15px; }
 
-        /* قسم صوت العميل */
-        .feedback-section { padding: 60px 0; }
+        .service-card:hover {
+            transform: translateY(-15px);
+            border-color: var(--gold);
+            background: rgba(212, 175, 55, 0.05);
+            box-shadow: 0 20px 50px rgba(0,0,0,0.8);
+        }
+
+        .service-card i { font-size: 3.5rem; color: var(--gold); margin-bottom: 20px; }
+
+        .fashion-gallery {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            gap: 15px;
+            margin-top: 25px;
+        }
+        .fashion-gallery img {
+            width: 100%;
+            height: 250px;
+            object-fit: cover;
+            border-radius: 15px;
+            border: 1px solid var(--border);
+            transition: 0.3s;
+        }
+        .fashion-gallery img:hover {
+            transform: scale(1.05);
+            border-color: var(--gold);
+        }
+
+        /* تنسيق قسم آراء العملاء والمقترحات */
+        .feedback-section {
+            padding: 80px 0;
+            background: rgba(212, 175, 55, 0.02);
+            border-radius: 50px;
+            margin: 50px auto;
+        }
+
         .feedback-form {
-            max-width: 600px; margin: 0 auto;
-            background: var(--glass); padding: 35px;
-            border-radius: 25px; border: 1px solid var(--border);
+            max-width: 600px;
+            margin: 0 auto;
+            background: var(--glass);
+            padding: 40px;
+            border-radius: 30px;
+            border: 1px solid var(--border);
+            backdrop-filter: blur(10px);
         }
-        .form-group { margin-bottom: 15px; text-align: right; }
-        .form-group label { display: block; margin-bottom: 5px; color: var(--gold); font-weight: 700; }
+
+        .form-group { margin-bottom: 20px; text-align: right; }
+        .form-group label { display: block; margin-bottom: 10px; color: var(--gold); font-weight: 700; }
+        
         .form-control {
-            width: 100%; padding: 12px;
-            background: rgba(255,255,255,0.05); border: 1px solid var(--border);
-            border-radius: 10px; color: #fff; font-family: 'Tajawal'; outline: none;
+            width: 100%;
+            padding: 15px;
+            background: rgba(255,255,255,0.05);
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            color: #fff;
+            font-family: 'Tajawal';
+            outline: none;
+            transition: 0.3s;
         }
+
+        .form-control:focus { border-color: var(--gold); box-shadow: 0 0 10px rgba(212,175,55,0.3); }
 
         .submit-btn {
-            width: 100%; padding: 15px; background: var(--gold);
-            color: #000; border: none; border-radius: 10px;
-            font-weight: 900; cursor: pointer; transition: 0.3s; font-family: 'Tajawal';
+            width: 100%;
+            padding: 15px;
+            background: var(--gold);
+            color: #000;
+            border: none;
+            border-radius: 12px;
+            font-weight: 900;
+            cursor: pointer;
+            transition: 0.3s;
+            font-family: 'Tajawal';
+            font-size: 1.1rem;
         }
+        .submit-btn:hover { transform: scale(1.02); box-shadow: 0 0 20px var(--gold); }
 
-        /* آراء العملاء - الشكل البلوري */
         .testimonials-grid {
-            display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 20px; padding: 40px 0;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 30px;
+            padding: 50px 0;
         }
-        .testimonial-card {
-            background: var(--glass); border: 1px solid var(--border);
-            border-radius: 20px; padding: 25px; backdrop-filter: blur(10px);
-            animation: fadeIn 0.5s ease-in;
-        }
-        @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
 
-        .stars { color: var(--gold); margin-bottom: 10px; }
-        .client-name { color: var(--gold); font-weight: 900; display: block; margin-top: 10px; }
+        .testimonial-card {
+            background: rgba(255,255,255,0.03);
+            border-radius: 20px;
+            padding: 30px;
+            border: 1px solid var(--border);
+            transition: 0.3s;
+            position: relative;
+        }
+
+        .testimonial-card:hover {
+            background: rgba(212, 175, 55, 0.08);
+            transform: scale(1.02);
+        }
+
+        .testimonial-card .stars {
+            color: var(--gold);
+            margin-bottom: 15px;
+            font-size: 1.2rem;
+        }
+
+        .testimonial-card p {
+            font-style: italic;
+            line-height: 1.6;
+            margin-bottom: 20px;
+            color: #eee;
+        }
+
+        .client-info {
+            border-top: 1px solid var(--border);
+            padding-top: 15px;
+        }
+
+        .client-name {
+            display: block;
+            color: var(--gold);
+            font-weight: 900;
+            font-size: 1.1rem;
+        }
 
         .modal {
-            display: none; position: fixed; top: 0; left: 0;
-            width: 100%; height: 100%; background: rgba(0,0,0,0.9);
-            z-index: 2000; align-items: center; justify-content: center;
-        }
-        .modal-content {
-            background: var(--black); border: 1px solid var(--gold);
-            padding: 30px; border-radius: 20px; max-width: 500px; width: 90%; text-align: center;
+            display: none;
+            position: fixed;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background: rgba(0,0,0,0.95);
+            backdrop-filter: blur(20px);
+            z-index: 2000;
+            align-items: center; justify-content: center;
+            padding: 20px;
         }
 
-        footer { padding: 40px 0; border-top: 1px solid var(--border); text-align: center; }
-        .social-box a { font-size: 1.5rem; color: #fff; margin: 0 10px; }
+        .modal-content {
+            background: var(--black);
+            border: 2px solid var(--gold);
+            padding: 40px;
+            border-radius: 30px;
+            max-width: 800px;
+            width: 95%;
+            max-height: 90vh;
+            overflow-y: auto;
+            position: relative;
+            text-align: center;
+            animation: modalFade 0.4s ease;
+        }
+
+        @keyframes modalFade { from { opacity: 0; transform: scale(0.9); } to { opacity: 1; transform: scale(1); } }
+
+        .close-modal {
+            position: absolute;
+            top: 20px; left: 20px;
+            font-size: 2rem; color: var(--gold); cursor: pointer;
+            z-index: 10;
+        }
+
+        .auth-btn {
+            width: 100%; padding: 12px; margin: 10px 0;
+            border-radius: 10px; border: 1px solid var(--gold);
+            background: transparent; color: #fff; cursor: pointer;
+            font-weight: 700; display: flex; align-items: center; justify-content: center; gap: 10px;
+        }
+        .auth-btn:hover { background: rgba(212,175,55,0.1); }
+
+        footer {
+            padding: 60px 0;
+            border-top: 1px solid var(--border);
+            text-align: center;
+        }
+
+        .social-box a { font-size: 2rem; color: #fff; margin: 0 15px; transition: 0.3s; }
+        .social-box a:hover { color: var(--gold); transform: translateY(-5px); }
 
         [lang="en"] .ar-text { display: none; }
         [lang="ar"] .en-text { display: none; }
+
+        @media (max-width: 768px) {
+            .hero-logo h1 { font-size: 3.5rem; }
+            .nav-links { gap: 15px; }
+            .modal-content { padding: 30px 15px; }
+        }
     </style>
 </head>
 <body id="bodyTag">
@@ -146,10 +311,11 @@
 
     <header>
         <div class="container nav-container">
-            <div class="logo-small"><h2 style="color:var(--gold);">AI BEAUTY</h2></div>
+            <div class="logo-small"><h2 style="color:var(--gold); font-weight:900;">AI BEAUTY</h2></div>
             <ul class="nav-links">
                 <li><a href="#services"><span class="ar-text">الخدمات</span><span class="en-text">Services</span></a></li>
-                <li><a href="#testimonials"><span class="ar-text">آراء النخبة</span><span class="en-text">Reviews</span></a></li>
+                <li><a href="#testimonials"><span class="ar-text">قالوا عنا</span><span class="en-text">Reviews</span></a></li>
+                <li><a href="#feedback"><span class="ar-text">تواصل معنا</span><span class="en-text">Feedback</span></a></li>
                 <button class="btn-lang" onclick="toggleLang()">English</button>
                 <button class="btn-login" onclick="openLogin()"><span class="ar-text">دخول</span><span class="en-text">Login</span></button>
             </ul>
@@ -159,176 +325,229 @@
     <div class="hero-logo">
         <h1>AI BEAUTY</h1>
         <div class="trust-badge">
-            <a href="https://wa.me/963956227556" class="badge-item">
-                <i class="fab fa-whatsapp"></i> <span class="ar-text">احجز استشارتك</span><span class="en-text">Book Now</span>
-            </a>
+            <span class="badge-item">
+                <i class="fas fa-check-circle"></i> 
+                <span class="ar-text">موثوقون من قبل +10,000 عميل حول العالم</span>
+                <span class="en-text">Trusted by +10,000 global clients</span>
+            </span>
+            <div style="margin-top: 25px;">
+                <a href="https://wa.me/963956227556" class="badge-item" style="text-decoration:none; background: var(--gold); color: #000;">
+                    <i class="fab fa-whatsapp"></i> 
+                    <span class="ar-text">احجز خدمتك الآن</span>
+                    <span class="en-text">Book Your Service Now</span>
+                </a>
+            </div>
         </div>
     </div>
 
     <section class="container" id="services">
+        <h2 style="text-align:center; font-size:2.5rem; margin-bottom:40px;">
+            <span class="ar-text">منظومة <span class="highlight-gold">الفخامة الرقمية</span></span>
+            <span class="en-text">The <span class="highlight-gold">Digital Luxury</span> System</span>
+        </h2>
         <div class="services-grid">
-            <div class="service-card" onclick="openModal('web')">
+            <div class="service-card" onclick="openModal('webdesign')">
                 <i class="fas fa-code"></i>
-                <h3><span class="ar-text">المواقع الذكية</span><span class="en-text">Web Design</span></h3>
+                <h3><span class="ar-text">تصميم المواقع</span><span class="en-text">Web Design</span></h3>
+                <p><span class="ar-text">بناء إمبراطوريتك الرقمية بواجهات تخطف الأنفاس.</span><span class="en-text">Building your digital empire with breathtaking interfaces.</span></p>
+            </div>
+            <div class="service-card" onclick="openModal('food')">
+                <i class="fas fa-utensils"></i>
+                <h3><span class="ar-text">قطاع المطاعم</span><span class="en-text">Restaurants</span></h3>
+                <p><span class="ar-text">صناعة تجربة بصرية لا تقاوم.</span><span class="en-text">Creating irresistible visual experiences.</span></p>
+            </div>
+            <div class="service-card" onclick="openModal('fashion')">
+                <i class="fas fa-tshirt"></i>
+                <h3><span class="ar-text">عالم الموضة</span><span class="en-text">Fashion</span></h3>
+                <p><span class="ar-text">عارضو أزياء افتراضيون بمواصفات عالمية.</span><span class="en-text">Global-standard virtual models.</span></p>
+            </div>
+            <div class="service-card" onclick="openModal('realestate')">
+                <i class="fas fa-building"></i>
+                <h3><span class="ar-text">العقارات والقصور</span><span class="en-text">Real Estate</span></h3>
+                <p><span class="ar-text">تجسيد الرفاهية المعمارية قبل بنائها.</span><span class="en-text">Visualizing luxury before construction.</span></p>
             </div>
             <div class="service-card" onclick="openModal('beauty')">
                 <i class="fas fa-magic"></i>
                 <h3><span class="ar-text">مراكز التجميل</span><span class="en-text">Beauty Centers</span></h3>
+                <p><span class="ar-text">هوية بصرية أرستقراطية لمركزك.</span><span class="en-text">Aristocratic identity for your center.</span></p>
             </div>
-            <div class="service-card" onclick="openModal('fashion')">
-                <i class="fas fa-crown"></i>
-                <h3><span class="ar-text">عالم الموضة</span><span class="en-text">Fashion AI</span></h3>
+            <div class="service-card" onclick="openModal('cars')">
+                <i class="fas fa-car-side"></i>
+                <h3><span class="ar-text">وكالات السيارات</span><span class="en-text">Car Agencies</span></h3>
+                <p><span class="ar-text">إعلانات سينمائية للسيارات الفارهة.</span><span class="en-text">Cinematic ads for luxury cars.</span></p>
             </div>
         </div>
     </section>
 
     <section class="container feedback-section" id="feedback">
+        <h2 style="text-align:center; font-size:2.5rem; margin-bottom:40px;">
+            <span class="ar-text">صوت <span class="highlight-gold">العميل</span></span>
+            <span class="en-text">Customer <span class="highlight-gold">Voice</span></span>
+        </h2>
         <div class="feedback-form">
-            <h2 style="text-align:center; color:var(--gold); margin-bottom:20px;">
-                <span class="ar-text">صوت العميل</span><span class="en-text">Customer Voice</span>
-            </h2>
-            <form id="contactForm" action="https://formspree.io/f/mqakpree" method="POST">
-                <input type="hidden" name="_subject" value="إقتراح جديد من موقع AI BEAUTY">
-                <input type="hidden" name="_replyto" id="hiddenEmail" value="mmany1414@gmail.com">
-                
-                <div class="form-group">
-                    <label><span class="ar-text">الاسم الكامل</span><span class="en-text">Full Name</span></label>
-                    <input type="text" name="name" class="form-control" id="clientName" required>
-                </div>
-                <div class="form-group">
-                    <label><span class="ar-text">نوع الرسالة</span><span class="en-text">Type</span></label>
-                    <select name="type" class="form-control" id="msgType">
-                        <option value="رأي">رأي</option>
-                        <option value="اقتراح">اقتراح</option>
-                        <option value="شكوى">شكوى</option>
-                    </select>
-                </div>
-                <div class="form-group">
-                    <label><span class="ar-text">رسالتك</span><span class="en-text">Message</span></label>
-                    <textarea name="message" class="form-control" id="clientMsg" rows="4" required></textarea>
-                </div>
-                <button type="submit" class="submit-btn">
-                    <span class="ar-text">إرسال وإضافة للموقع</span><span class="en-text">Send & Post</span>
-                </button>
-            </form>
+            <div class="form-group">
+                <label><span class="ar-text">الاسم الكامل</span><span class="en-text">Full Name</span></label>
+                <input type="text" class="form-control" id="clientName" placeholder="...">
+            </div>
+            <div class="form-group">
+                <label><span class="ar-text">نوع الرسالة</span><span class="en-text">Message Type</span></label>
+                <select class="form-control" id="msgType">
+                    <option value="رأي"><span class="ar-text">رأي / تجربة</span></option>
+                    <option value="اقتراح"><span class="ar-text">اقتراح تطوير</span></option>
+                    <option value="شكوى"><span class="ar-text">شكوى</span></option>
+                </select>
+            </div>
+            <div class="form-group">
+                <label><span class="ar-text">رسالتك</span><span class="en-text">Your Message</span></label>
+                <textarea class="form-control" id="clientMsg" rows="4" placeholder="..."></textarea>
+            </div>
+            <button class="submit-btn" onclick="sendFeedback()">
+                <span class="ar-text">إرسال الآن</span>
+                <span class="en-text">Send Now</span>
+            </button>
         </div>
     </section>
 
+    <div class="modal" id="infoModal">
+        <div class="modal-content">
+            <span class="close-modal" onclick="closeModal()">&times;</span>
+            <div id="modalBody"></div>
+            <br>
+            <a href="https://wa.me/963956227556" class="badge-item" style="text-decoration:none;"><span class="ar-text">اطلب الخدمة الآن</span><span class="en-text">Order Now</span></a>
+        </div>
+    </div>
+
     <section class="container" id="testimonials">
-        <h2 style="text-align:center; margin-bottom:30px; color:var(--gold);">
-            <span class="ar-text">آراء <span style="color:#fff;">النخبة</span></span>
-            <span class="en-text">Elite <span style="color:#fff;">Reviews</span></span>
+        <h2 style="text-align:center; font-size:2.5rem; margin-top:80px;">
+            <span class="ar-text">آراء <span class="highlight-gold">النخبة</span></span>
+            <span class="en-text">Elite <span class="highlight-gold">Testimonials</span></span>
         </h2>
-        <div class="testimonials-grid" id="testimonialsGrid">
+        <div class="testimonials-grid">
             <div class="testimonial-card">
                 <div class="stars">★★★★★</div>
-                <p>"تجربة استثنائية، التصاميم تفوق الخيال."</p>
-                <span class="client-name">سيف المنصور</span>
+                <p class="ar-text">"لقد غيرت AI BEAUTY مفهوم التسويق لدينا تماماً. الصور السينمائية جذبت عملاء من طبقة رفيعة لم نكن نحلم بالوصول إليهم."</p>
+                <p class="en-text">"AI BEAUTY completely changed our marketing concept. The cinematic visuals attracted elite clients we never dreamed of reaching."</p>
+                <div class="client-info">
+                    <span class="client-name">سيف المنصور</span>
+                    <small class="ar-text">مالك سلسلة مطاعم فاخرة</small>
+                    <small class="en-text">Luxury Restaurant Owner</small>
+                </div>
+            </div>
+            <div class="testimonial-card">
+                <div class="stars">★★★★★</div>
+                <p class="ar-text">"عارضو الأزياء الافتراضيون كانوا مفاجأة الموسم، دقة لا تصدق ووفرت علينا ميزانيات ضخمة لجلسات التصوير التقليدية."</p>
+                <p class="en-text">"Virtual models were the season's surprise. Incredible accuracy and saved us huge budgets from traditional photo sessions."</p>
+                <div class="client-info">
+                    <span class="client-name">ليلى الحربي</span>
+                    <small class="ar-text">مديرة علامة تجارية للأزياء</small>
+                    <small class="en-text">Fashion Brand Manager</small>
+                </div>
             </div>
         </div>
     </section>
 
-    <footer>
-        <div class="social-box">
-            <a href="https://wa.me/963956227556"><i class="fab fa-whatsapp"></i></a>
-            <a href="#"><i class="fab fa-facebook"></i></a>
+    <footer id="contact">
+        <div class="container">
+            <div class="social-box">
+                <a href="https://wa.me/963956227556"><i class="fab fa-whatsapp"></i></a>
+                <a href="https://www.facebook.com/profile.php?id=61572165706219&locale=ar_AR"><i class="fab fa-facebook"></i></a>
+                <a href="https://t.me/+963956227556"><i class="fab fa-telegram"></i></a>
+            </div>
+            <p style="margin-top:40px; opacity:0.6;">&copy; 2026 AI BEAUTY</p>
         </div>
-        <p style="margin-top:20px; opacity:0.5;">&copy; 2026 AI BEAUTY</p>
     </footer>
 
-    <div class="modal" id="infoModal">
+    <div class="modal" id="loginModal">
         <div class="modal-content">
-            <h2 id="mTitle" style="color:var(--gold)"></h2>
-            <p id="mDesc" style="margin:15px 0"></p>
-            <button class="submit-btn" onclick="closeModal()">إغلاق</button>
+            <span class="close-modal" onclick="closeLogin()">&times;</span>
+            <h2 class="highlight-gold"><span class="ar-text">انضم للنخبة</span><span class="en-text">Join the Elite</span></h2>
+            <div style="margin-top: 30px;">
+                <button class="auth-btn" onclick="welcomeAlert()"><i class="fab fa-google"></i> Google</button>
+                <button class="auth-btn" onclick="welcomeAlert()"><i class="fab fa-facebook"></i> Facebook</button>
+            </div>
         </div>
     </div>
 
     <script src="https://cdn.jsdelivr.net/particles.js/2.0.0/particles.min.js"></script>
     <script>
-        // إعداد الجسيمات
         particlesJS('particles-js', {
             "particles": {
-                "number": { "value": 60 },
+                "number": { "value": 150 },
                 "color": { "value": "#D4AF37" },
                 "size": { "value": 2 },
-                "line_linked": { "enable": true, "opacity": 0.1 },
+                "line_linked": { "enable": true, "distance": 150, "color": "#D4AF37", "opacity": 0.2, "width": 1 },
                 "move": { "enable": true, "speed": 1 }
             }
         });
 
-        // لغة الموقع
-        let currentLang = 'ar';
-        function toggleLang() {
-            const html = document.getElementById('mainHtml');
-            currentLang = currentLang === 'ar' ? 'en' : 'ar';
-            html.dir = currentLang === 'ar' ? 'rtl' : 'ltr';
-            html.lang = currentLang;
-            document.querySelector('.btn-lang').innerText = currentLang === 'ar' ? 'English' : 'العربية';
-        }
-
-        // التعامل مع النموذج: إرسال الإيميل وحفظ الرأي
-        const contactForm = document.getElementById('contactForm');
-        contactForm.addEventListener('submit', function(e) {
-            e.preventDefault(); // منع الصفحة من إعادة التحميل
-
-            const name = document.getElementById('clientName').value;
-            const msg = document.getElementById('clientMsg').value;
-            const type = document.getElementById('msgType').value;
-
-            // 1. إرسال البيانات إلى الإيميل عبر Formspree
-            const formData = new FormData(this);
-            fetch(this.action, {
-                method: 'POST',
-                body: formData,
-                headers: { 'Accept': 'application/json' }
-            }).then(response => {
-                if (response.ok) {
-                    alert('تم إرسال اقتراحك للإدارة وسيظهر الآن على الموقع!');
-                }
-            });
-
-            // 2. إضافة الرأي فوراً للشبكة البلورية
-            if(type === 'رأي' || type === 'اقتراح') {
-                addTestimonialToUI(name, msg);
-                saveTestimonial(name, msg);
-            }
-
-            this.reset();
-        });
-
-        function addTestimonialToUI(name, msg) {
-            const grid = document.getElementById('testimonialsGrid');
-            const card = document.createElement('div');
-            card.className = 'testimonial-card';
-            card.innerHTML = `
-                <div class="stars">★★★★★</div>
-                <p>"${msg}"</p>
-                <span class="client-name">${name}</span>
-            `;
-            grid.prepend(card); // إضافة في البداية
-        }
-
-        // حفظ في ذاكرة المتصفح ليظل موجوداً عند تحديث الصفحة
-        function saveTestimonial(name, msg) {
-            let list = JSON.parse(localStorage.getItem('myReviews') || "[]");
-            list.push({name, msg});
-            localStorage.setItem('myReviews', JSON.stringify(list));
-        }
-
-        // تحميل الآراء المحفوظة عند فتح الموقع
-        window.onload = function() {
-            let list = JSON.parse(localStorage.getItem('myReviews') || "[]");
-            list.forEach(item => addTestimonialToUI(item.name, item.msg));
+        const serviceData = {
+            webdesign: { ar: { title: "تصميم المواقع النخبوية", desc: "نحن لا نصمم مجرد مواقع، نحن نبني هويات رقمية أرستقراطية تجمع بين البرمجة المتقدمة والتصميم الفاخر لزيادة مبيعاتك بنسبة 300%." }, en: { title: "Elite Web Design", desc: "We don't just design websites; we build aristocratic digital identities that combine advanced programming with luxury design to increase your sales by 300%." } },
+            food: { ar: { title: "المطاعم الراقية", desc: "نحن نخلق محتوى بصري للأطعمة يجعل المشاهد يشعر بالمذاق عبر الشاشة." }, en: { title: "Gourmet Restaurants", desc: "We create visual food content that makes the viewer feel the taste through the screen." } },
+            fashion: { 
+                ar: { title: "إمبراطورية الموضة", desc: "عارضو أزياء افتراضيون يرتدون ملابسك في أي مكان في العالم بدقة 8K." }, 
+                en: { title: "Fashion Empire", desc: "Virtual models wearing your clothes anywhere in the world in 8K resolution." },
+                images: [
+                    "WhatsApp Image 2026-04-17 at 5.10.38 PM.jpeg",
+                    "photo_5988055713919470607_y.jpg",
+                    "photo_5983308018415766520_y.jpg",
+                    "photo_5983308018415766519_y.jpg",
+                    "photo_5983308018415766521_y.jpg"
+                ]
+            },
+            realestate: { ar: { title: "العقارات الملكية", desc: "حوّل المخططات الصماء إلى جولات بصرية ساحرة قبل وضع حجر الأساس." }, en: { title: "Royal Real Estate", desc: "Turn dull plans into magical visual tours before laying the foundation." } },
+            beauty: { ar: { title: "جمال النخبة", desc: "نحن نصمم الوجه الإعلاني المثالي لمركزك التجميلي." }, en: { title: "Elite Beauty", desc: "We design the perfect advertising face for your beauty center." } },
+            cars: { ar: { title: "سحر المحركات", desc: "نصنع محتوى سينمائي للسيارات يبرز الانسيابية والفخامة." }, en: { title: "Motor Magic", desc: "We create cinematic car content highlighting smoothness and luxury." } }
         };
 
-        function openModal(service) {
-            document.getElementById('mTitle').innerText = "AI BEAUTY";
-            document.getElementById('mDesc').innerText = "نقدم حلولاً رقمية ذكية تناسب تطلعاتكم.";
+        let currentLang = 'ar';
+
+        function toggleLang() {
+            const html = document.getElementById('mainHtml');
+            if (currentLang === 'ar') {
+                currentLang = 'en'; html.dir = 'ltr'; html.lang = 'en';
+                document.querySelector('.btn-lang').innerText = 'العربية';
+            } else {
+                currentLang = 'ar'; html.dir = 'rtl'; html.lang = 'ar';
+                document.querySelector('.btn-lang').innerText = 'English';
+            }
+        }
+
+        function openModal(key) {
+            const item = serviceData[key][currentLang];
+            const data = serviceData[key];
+            let content = `<h2 class="highlight-gold">${item.title}</h2><p>${item.desc}</p>`;
+            if (key === 'fashion' && data.images) {
+                content += `<div class="fashion-gallery">`;
+                data.images.forEach(img => { content += `<img src="${img}" alt="Fashion AI">`; });
+                content += `</div>`;
+            }
+            document.getElementById('modalBody').innerHTML = content;
             document.getElementById('infoModal').style.display = 'flex';
         }
+
+        function sendFeedback() {
+            const name = document.getElementById('clientName').value;
+            const type = document.getElementById('msgType').value;
+            const msg = document.getElementById('clientMsg').value;
+
+            if(!name || !msg) {
+                alert(currentLang === 'ar' ? 'يرجى ملء الاسم والرسالة' : 'Please fill in name and message');
+                return;
+            }
+
+            // محاكاة إرسال
+            alert(currentLang === 'ar' ? 'شكراً لك! تم استلام رسالتك بنجاح.' : 'Thank you! Your message has been received.');
+            
+            // تنظيف الحقول
+            document.getElementById('clientName').value = '';
+            document.getElementById('clientMsg').value = '';
+        }
+
         function closeModal() { document.getElementById('infoModal').style.display = 'none'; }
-        function openLogin() { alert('قريباً: بوابة العملاء الخاصة'); }
+        function openLogin() { document.getElementById('loginModal').style.display = 'flex'; }
+        function closeLogin() { document.getElementById('loginModal').style.display = 'none'; }
+        function welcomeAlert() { alert(currentLang === 'ar' ? 'أهلاً بك في عالم النخبة!' : 'Welcome to the Elite World!'); closeLogin(); }
+        window.onclick = (e) => { if(e.target.className === 'modal') { closeModal(); closeLogin(); } }
     </script>
 </body>
 </html>
