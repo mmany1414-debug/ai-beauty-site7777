@@ -148,6 +148,56 @@
             border-color: var(--gold);
         }
 
+        /* تنسيق قسم آراء العملاء والمقترحات */
+        .feedback-section {
+            padding: 80px 0;
+            background: rgba(212, 175, 55, 0.02);
+            border-radius: 50px;
+            margin: 50px auto;
+        }
+
+        .feedback-form {
+            max-width: 600px;
+            margin: 0 auto;
+            background: var(--glass);
+            padding: 40px;
+            border-radius: 30px;
+            border: 1px solid var(--border);
+            backdrop-filter: blur(10px);
+        }
+
+        .form-group { margin-bottom: 20px; text-align: right; }
+        .form-group label { display: block; margin-bottom: 10px; color: var(--gold); font-weight: 700; }
+        
+        .form-control {
+            width: 100%;
+            padding: 15px;
+            background: rgba(255,255,255,0.05);
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            color: #fff;
+            font-family: 'Tajawal';
+            outline: none;
+            transition: 0.3s;
+        }
+
+        .form-control:focus { border-color: var(--gold); box-shadow: 0 0 10px rgba(212,175,55,0.3); }
+
+        .submit-btn {
+            width: 100%;
+            padding: 15px;
+            background: var(--gold);
+            color: #000;
+            border: none;
+            border-radius: 12px;
+            font-weight: 900;
+            cursor: pointer;
+            transition: 0.3s;
+            font-family: 'Tajawal';
+            font-size: 1.1rem;
+        }
+        .submit-btn:hover { transform: scale(1.02); box-shadow: 0 0 20px var(--gold); }
+
         .testimonials-grid {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
@@ -265,7 +315,7 @@
             <ul class="nav-links">
                 <li><a href="#services"><span class="ar-text">الخدمات</span><span class="en-text">Services</span></a></li>
                 <li><a href="#testimonials"><span class="ar-text">قالوا عنا</span><span class="en-text">Reviews</span></a></li>
-                <li><a href="#about"><span class="ar-text">من نحن</span><span class="en-text">About</span></a></li>
+                <li><a href="#feedback"><span class="ar-text">تواصل معنا</span><span class="en-text">Feedback</span></a></li>
                 <button class="btn-lang" onclick="toggleLang()">English</button>
                 <button class="btn-login" onclick="openLogin()"><span class="ar-text">دخول</span><span class="en-text">Login</span></button>
             </ul>
@@ -326,6 +376,35 @@
                 <h3><span class="ar-text">وكالات السيارات</span><span class="en-text">Car Agencies</span></h3>
                 <p><span class="ar-text">إعلانات سينمائية للسيارات الفارهة.</span><span class="en-text">Cinematic ads for luxury cars.</span></p>
             </div>
+        </div>
+    </section>
+
+    <section class="container feedback-section" id="feedback">
+        <h2 style="text-align:center; font-size:2.5rem; margin-bottom:40px;">
+            <span class="ar-text">صوت <span class="highlight-gold">العميل</span></span>
+            <span class="en-text">Customer <span class="highlight-gold">Voice</span></span>
+        </h2>
+        <div class="feedback-form">
+            <div class="form-group">
+                <label><span class="ar-text">الاسم الكامل</span><span class="en-text">Full Name</span></label>
+                <input type="text" class="form-control" id="clientName" placeholder="...">
+            </div>
+            <div class="form-group">
+                <label><span class="ar-text">نوع الرسالة</span><span class="en-text">Message Type</span></label>
+                <select class="form-control" id="msgType">
+                    <option value="رأي"><span class="ar-text">رأي / تجربة</span></option>
+                    <option value="اقتراح"><span class="ar-text">اقتراح تطوير</span></option>
+                    <option value="شكوى"><span class="ar-text">شكوى</span></option>
+                </select>
+            </div>
+            <div class="form-group">
+                <label><span class="ar-text">رسالتك</span><span class="en-text">Your Message</span></label>
+                <textarea class="form-control" id="clientMsg" rows="4" placeholder="..."></textarea>
+            </div>
+            <button class="submit-btn" onclick="sendFeedback()">
+                <span class="ar-text">إرسال الآن</span>
+                <span class="en-text">Send Now</span>
+            </button>
         </div>
     </section>
 
@@ -417,8 +496,7 @@
             },
             realestate: { ar: { title: "العقارات الملكية", desc: "حوّل المخططات الصماء إلى جولات بصرية ساحرة قبل وضع حجر الأساس." }, en: { title: "Royal Real Estate", desc: "Turn dull plans into magical visual tours before laying the foundation." } },
             beauty: { ar: { title: "جمال النخبة", desc: "نحن نصمم الوجه الإعلاني المثالي لمركزك التجميلي." }, en: { title: "Elite Beauty", desc: "We design the perfect advertising face for your beauty center." } },
-            cars: { ar: { title: "سحر المحركات", desc: "نصنع محتوى سينمائي للسيارات يبرز الانسيابية والفخامة." }, en: { title: "Motor Magic", desc: "We create cinematic car content highlighting smoothness and luxury." } },
-            tourism: { ar: { title: "السياحة الأرستقراطية", desc: "نصنع فيديوهات تخيلية للوجهات تضع العميل في قلب التجربة." }, en: { title: "Aristocratic Tourism", desc: "We create imaginary destination videos that put the client in the heart of the experience." } }
+            cars: { ar: { title: "سحر المحركات", desc: "نصنع محتوى سينمائي للسيارات يبرز الانسيابية والفخامة." }, en: { title: "Motor Magic", desc: "We create cinematic car content highlighting smoothness and luxury." } }
         };
 
         let currentLang = 'ar';
@@ -437,19 +515,32 @@
         function openModal(key) {
             const item = serviceData[key][currentLang];
             const data = serviceData[key];
-            
             let content = `<h2 class="highlight-gold">${item.title}</h2><p>${item.desc}</p>`;
-            
             if (key === 'fashion' && data.images) {
                 content += `<div class="fashion-gallery">`;
-                data.images.forEach(img => {
-                    content += `<img src="${img}" alt="Fashion AI">`;
-                });
+                data.images.forEach(img => { content += `<img src="${img}" alt="Fashion AI">`; });
                 content += `</div>`;
             }
-
             document.getElementById('modalBody').innerHTML = content;
             document.getElementById('infoModal').style.display = 'flex';
+        }
+
+        function sendFeedback() {
+            const name = document.getElementById('clientName').value;
+            const type = document.getElementById('msgType').value;
+            const msg = document.getElementById('clientMsg').value;
+
+            if(!name || !msg) {
+                alert(currentLang === 'ar' ? 'يرجى ملء الاسم والرسالة' : 'Please fill in name and message');
+                return;
+            }
+
+            // محاكاة إرسال
+            alert(currentLang === 'ar' ? 'شكراً لك! تم استلام رسالتك بنجاح.' : 'Thank you! Your message has been received.');
+            
+            // تنظيف الحقول
+            document.getElementById('clientName').value = '';
+            document.getElementById('clientMsg').value = '';
         }
 
         function closeModal() { document.getElementById('infoModal').style.display = 'none'; }
